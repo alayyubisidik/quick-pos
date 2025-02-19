@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardCahierController;
+use App\Http\Controllers\DashboardManagerController;
+use App\Http\Controllers\DashboardWarehouseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +17,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+    Route::get("/signin", [AuthController::class, "showSignin"]);
+    // Route::post("/signin", [AuthController::class, "submitSignin"]);
+
+    Route::get("/dashboard-manager", [DashboardManagerController::class, "showOverview"]);
+
+    Route::get("/dashboard-cashier", [DashboardCahierController::class, "showOverview"]);
+
+    Route::get("/dashboard-warehouse", [DashboardWarehouseController::class, "showOverview"]);
