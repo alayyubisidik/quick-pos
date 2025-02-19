@@ -60,6 +60,15 @@ class DashboardManagerController extends Controller
         return redirect("/dashboard-manager/user")->with("message-success", "Add user successfully");
     }
 
+    public function removeUser($userId) {
+        $user = User::find($userId);
+        $image_path = public_path("\storage\profile-image\\") .$user->image;
+        File::delete($image_path);
+        $user->delete();
+
+        return redirect("/dashboard-manager/user")->with("message-success", "Remove user successfully");
+    }
+
     
     // ====================================================User====================================================================
 
