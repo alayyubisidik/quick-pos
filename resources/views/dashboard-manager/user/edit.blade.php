@@ -1,11 +1,11 @@
 @extends('layout.main')
 
-@section('title', 'Add User')
+@section('title', 'Edit User')
 
 @section('content')
-    <h1 class="text-2xl font-semibold mb-[1.5rem]">Add User</h1>
+    <h1 class="text-2xl font-semibold mb-[1.5rem]">Edit User</h1>
 
-    <form action="{{ route('user.submit-add-user') }}" method="post" enctype="multipart/form-data">
+    <form action="/dashboard-manager/user/edit/{{ $user["id"] }}" method="post" enctype="multipart/form-data">
         @csrf
 
         <div class="mb-6">
@@ -13,7 +13,7 @@
             @error("full_name")
                 <p class="text-red-500 text-sm mb-[3px] m-0 ">{{ $message }}</p>
             @enderror
-            <input type="type" id="full_name" value="{{ old("full_name") }}" name="full_name"
+            <input type="type" id="full_name" value="{{ $user["full_name"] }}" name="full_name"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                 placeholder="Jhon Doe" />
         </div>
@@ -23,32 +23,9 @@
             @error("email")
                 <p class="text-red-500 text-sm mb-[3px] m-0 ">{{ $message }}</p>
             @enderror
-            <input type="email" id="email" value="{{ old("email") }}" name="email"
+            <input type="email" id="email" value="{{ $user["email"] }}" name="email"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                 placeholder="john.doe@company.com" />
-        </div>
-
-        <div class="mb-6">
-            <label for="password" class="block mb-2 text-sm font-medium text-gray-900 ">Password</label>
-            @if( session("password-not-same-error") )
-                <p class="text-red-500 text-sm mb-[3px] m-0 ">{{ session("password-not-same-error") }}</p>
-            @endif
-            @error("password")
-                <p class="text-red-500 text-sm mb-[3px] m-0 ">{{ $message }}</p>
-            @enderror
-            <input type="password" id="password" name="password"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                placeholder="•••••••••" />
-        </div>
-
-        <div class="mb-6">
-            <label for="password_confirmation" class="block mb-2 text-sm font-medium text-gray-900 ">Confirm password</label>
-            @error("password_confirmation")
-                <p class="text-red-500 text-sm mb-[3px] m-0 ">{{ $message }}</p>
-            @enderror
-            <input type="password" id="password_confirmation" name="password_confirmation"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                placeholder="•••••••••" />
         </div>
 
         <div class="mb-6">
@@ -56,12 +33,13 @@
             @error("role")
                 <p class="text-red-500 text-sm mb-[3px] m-0 ">{{ $message }}</p>
             @enderror
-            <select id="role" value="{{ old("role") }}" name="role"
+            <select id="role" name="role"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
-                <option value="cashier">Cashier</option>
-                <option value="warehouse">Warehouse</option>
+                
+                <option value="cashier" {{  $user["role"] == 'cashier' ? 'selected' : '' }}>Cashier</option>
+                <option value="warehouse" {{  $user["role"] == 'warehouse' ? 'selected' : '' }}>Warehouse</option>
             </select>
-        </div>
+        </div>        
 
         <div class="mb-6">
             <label class="block mb-2 text-sm font-medium text-gray-900 " for="file_input">Upload file</label>
@@ -70,8 +48,7 @@
             @enderror
             <input onchange="previewImage(this)" name="image" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none " aria-describedby="file_input_help" id="file_input" type="file">
             <p class="mt-1 text-sm text-gray-500 " id="file_input_help">SVG, PNG or JPG  (MAX. 800x400px | 5MB).</p>
-            <img id="preview" src="#" alt="Preview"
-            style="display: none; max-width: 150px;; margin-top: 10px;">
+            <img id="preview" src="{{  asset('/storage/profile-image/' . $user["image"]) }}" alt="Preview" style=" max-width: 150px; margin-top: 10px;">
         </div>
 
         <div class="flex gap-[.5rem] mt-[1rem]">

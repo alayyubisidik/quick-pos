@@ -69,6 +69,41 @@ class DashboardManagerController extends Controller
         return redirect("/dashboard-manager/user")->with("message-success", "Remove user successfully");
     }
 
+    public function showEditUser($userId) {
+        $user = User::find($userId);
+        return view("dashboard-manager.user.edit", [
+            "user" => $user
+        ]);
+    }
+
+    public function submitEditUser(Request $request, $userId) {
+        $request->validate([
+            "full_name" => "min:3|max:255",
+            "email" => "email|max:255",
+            'role' => 'in:cashier,warehouse',
+            "image" => "image|mimes:jpeg,png,jpg|max:5000"
+        ]);
+
+        $user = User::find($userId);
+
+        if ($request->file('image')) {
+            Storage::disk('public')->delete('profile-image/' . $user->image);
+
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->storeAs('profile-image', $imageName, 'public');
+            $user->image = $imageName;
+        }
+
+        $user->full_name = $request->input('full_name');
+        $user->email = $request->input('email');
+        $user->role = $request->input('role');
+
+        $user->save();
+
+        return redirect('/dashboard-manager/user')->with("message-success", "Edit user successfully");
+    }
+
     
     // ====================================================User====================================================================
 
