@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Laravel</title>
+    <title>Quick Pos - @yield('title')</title>
     @vite('resources/css/app.css')
     <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
 </head>
@@ -33,7 +33,7 @@
                     </button>
                     <a href="https://flowbite.com" class="flex items-center justify-between mr-4">
                         <img src="https://flowbite.s3.amazonaws.com/logo.svg" class="mr-3 h-8" alt="Flowbite Logo" />
-                        <span class="self-center text-2xl font-semibold whitespace-nowrap ">Flowbite</span>
+                        <span class="self-center text-2xl font-semibold whitespace-nowrap ">Quick Pos</span>
                     </a>
                 </div>
                 <div class="flex items-center lg:order-2">
@@ -154,81 +154,101 @@
             <div class="overflow-y-auto py-5 px-3 h-full bg-white ">
                 <ul class="space-y-2">
                     <li>
-                        <a href="#"
-                            class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg  hover:bg-gray-100 ">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="gray"
-                                class="bi bi-pie-chart-fill" viewBox="0 0 16 16">
+                        <a href="/dashboard-manager"
+                            class="{{ request()->is('dashboard-manager') ? 'bg-blue-500' : '' }} group flex items-center p-2 text-base font-medium rounded-lg  hover:bg-blue-500 text-gray-600 hover:text-white ">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23"
+                                fill="{{ request()->is('dashboard-manager') ? 'white' : 'gray' }}"
+                                class="bi bi-pie-chart-fill  group-hover:fill-white " viewBox="0 0 16 16">
                                 <path
                                     d="M15.985 8.5H8.207l-5.5 5.5a8 8 0 0 0 13.277-5.5zM2 13.292A8 8 0 0 1 7.5.015v7.778zM8.5.015V7.5h7.485A8 8 0 0 0 8.5.015" />
                             </svg>
-                            <span class="ml-3">Overview</span>
+                            <span
+                                class="ml-3 {{ request()->is('dashboard-manager') ? 'text-white' : '' }}">Overview</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#"
-                            class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg  hover:bg-gray-100 ">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="gray"
-                                class="bi bi-person-fill" viewBox="0 0 16 16">
+                        <a href="/dashboard-manager/user"
+                            class="{{ request()->is('dashboard-manager/user*') ? 'bg-blue-500' : '' }} group flex items-center p-2 text-base font-medium rounded-lg  hover:bg-blue-500 text-gray-600 hover:text-white ">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23"
+                                fill="{{ request()->is('dashboard-manager/user*') ? 'white' : 'gray' }}"
+                                class="bi bi-person-fill group-hover:fill-white" viewBox="0 0 16 16">
                                 <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
                             </svg>
-                            <span class="ml-3">User</span>
+                            <span
+                                class="ml-3 {{ request()->is('dashboard-manager/user*') ? 'text-white' : '' }}">User</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#"
-                            class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg  hover:bg-gray-100 ">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="gray"
-                                class="bi bi-box-fill" viewBox="0 0 16 16">
+                        <a href="/dashboard-manager/product"
+                            class="{{ request()->is('dashboard-manager/product*') ? 'bg-blue-500' : '' }} group flex items-center p-2 text-base font-medium rounded-lg  hover:bg-blue-500 text-gray-600 hover:text-white ">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23"
+                                fill="{{ request()->is('dashboard-manager/product*') ? 'white' : 'gray' }}"
+                                class="bi bi-box-fill group-hover:fill-white" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd"
                                     d="M15.528 2.973a.75.75 0 0 1 .472.696v8.662a.75.75 0 0 1-.472.696l-7.25 2.9a.75.75 0 0 1-.557 0l-7.25-2.9A.75.75 0 0 1 0 12.331V3.669a.75.75 0 0 1 .471-.696L7.443.184l.004-.001.274-.11a.75.75 0 0 1 .558 0l.274.11.004.001zm-1.374.527L8 5.962 1.846 3.5 1 3.839v.4l6.5 2.6v7.922l.5.2.5-.2V6.84l6.5-2.6v-.4l-.846-.339Z" />
                             </svg>
-                            <span class="ml-3">Product</span>
+                            <span
+                                class="ml-3 {{ request()->is('dashboard-manager/product*') ? 'text-white' : '' }}">Product</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#"
-                            class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg  hover:bg-gray-100 ">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="gray"
-                                class="bi bi-grid-fill" viewBox="0 0 16 16">
+                        <a href="/dashboard-manager/category"
+                            class="{{ request()->is('dashboard-manager/category*') ? 'bg-blue-500' : '' }} group flex items-center p-2 text-base font-medium rounded-lg  hover:bg-blue-500 text-gray-600 hover:text-white ">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23"
+                                fill="{{ request()->is('dashboard-manager/category*') ? 'white' : 'gray' }}"
+                                class="bi bi-grid-fill group-hover:fill-white" viewBox="0 0 16 16">
                                 <path
                                     d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5zm8 0A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5zm-8 8A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5zm8 0A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5z" />
                             </svg>
-                            <span class="ml-3">Category</span>
+                            <span
+                                class="ml-3 {{ request()->is('dashboard-manager/category*') ? 'text-white' : '' }}">Category</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#"
-                            class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg  hover:bg-gray-100 ">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="gray"
-                                class="bi bi-clipboard-check-fill" viewBox="0 0 16 16">
-                                <path
-                                    d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5z" />
-                                <path
-                                    d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708" />
+                        <a href="/dashboard-manager/order"
+                            class="{{ request()->is('dashboard-manager/order*') ? 'bg-blue-500' : '' }} group flex items-center p-2 text-base font-medium rounded-lg  hover:bg-blue-500 text-gray-600 hover:text-white ">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23"
+                                fill="{{ request()->is('dashboard-manager/order*') ? 'white' : 'gray' }}"
+                                class="bi bi-bag-check-fill group-hover:fill-white" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0m-.646 5.354a.5.5 0 0 0-.708-.708L7.5 10.793 6.354 9.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0z" />
                             </svg>
-                            <span class="ml-3">Report</span>
+                            <span
+                                class="ml-3 {{ request()->is('dashboard-manager/order*') ? 'text-white' : '' }}">Order</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/dashboard-manager/report"
+                            class="{{ request()->is('dashboard-manager/report*') ? 'bg-blue-500' : '' }} group flex items-center p-2 text-base font-medium rounded-lg  hover:bg-blue-500 text-gray-600 hover:text-white ">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23"
+                                fill="{{ request()->is('dashboard-manager/report*') ? 'white' : 'gray' }}" class="bi bi-clipboard2-check-fill group-hover:fill-white" viewBox="0 0 16 16">
+                                <path
+                                    d="M10 .5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5.5.5 0 0 1-.5.5.5.5 0 0 0-.5.5V2a.5.5 0 0 0 .5.5h5A.5.5 0 0 0 11 2v-.5a.5.5 0 0 0-.5-.5.5.5 0 0 1-.5-.5" />
+                                <path
+                                    d="M4.085 1H3.5A1.5 1.5 0 0 0 2 2.5v12A1.5 1.5 0 0 0 3.5 16h9a1.5 1.5 0 0 0 1.5-1.5v-12A1.5 1.5 0 0 0 12.5 1h-.585q.084.236.085.5V2a1.5 1.5 0 0 1-1.5 1.5h-5A1.5 1.5 0 0 1 4 2v-.5q.001-.264.085-.5m6.769 6.854-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708.708" />
+                            </svg>
+                            <span
+                                class="ml-3 {{ request()->is('dashboard-manager/report*') ? 'text-white' : '' }}">Report</span>
                         </a>
                     </li>
                 </ul>
                 <ul class="pt-5 mt-5 space-y-2 border-t border-gray-200 ">
                     <li>
                         <a href="/signout"
-                            class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg transition duration-75 hover:bg-gray-100   group">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23"
-                                fill="gray" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd"
-                                    d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z" />
-                                <path fill-rule="evenodd"
-                                    d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z" />
+                            class=" group flex items-center p-2 text-base font-medium rounded-lg  hover:bg-blue-500 text-gray-600 hover:text-white ">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="gray"
+                                class="bi bi-pie-chart-fill  group-hover:fill-white " viewBox="0 0 16 16">
+                                <path
+                                    d="M15.985 8.5H8.207l-5.5 5.5a8 8 0 0 0 13.277-5.5zM2 13.292A8 8 0 0 1 7.5.015v7.778zM8.5.015V7.5h7.485A8 8 0 0 0 8.5.015" />
                             </svg>
-                            <span class="ml-3">Sign Out</span>
+                            <span class="ml-3 ">Sign Out</span>
                         </a>
                     </li>
                 </ul>
             </div>
         </aside>
 
-        <main class="p-4 md:ml-64 min-h-[100vh] pt-20">
+        <main class="p-[2rem] pt-[6rem] md:ml-64 min-h-[100vh]">
             {{-- <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
                 <div class="border-2 border-dashed border-gray-300 rounded-lg  h-32 md:h-64"></div>
                 <div class="border-2 border-dashed rounded-lg border-gray-300  h-32 md:h-64"></div>

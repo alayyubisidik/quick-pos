@@ -6,17 +6,11 @@ use App\Http\Controllers\DashboardCahierController;
 use App\Http\Controllers\DashboardManagerController;
 use App\Http\Controllers\DashboardWarehouseController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
+
+Route::get("/", function () {
+    return redirect("/signin");
+});
 
 Route::get("/signout", [AuthController::class, "signOut"]);
 
@@ -27,6 +21,11 @@ Route::middleware(["guest"])->group(function () {
 
 Route::middleware(["role:manager"])->group(function () {
     Route::get("/dashboard-manager", [DashboardManagerController::class, "showOverview"]);
+    Route::get("/dashboard-manager/user", [DashboardManagerController::class, "showUser"]);
+    Route::get("/dashboard-manager/product", [DashboardManagerController::class, "showProduct"]);
+    Route::get("/dashboard-manager/category", [DashboardManagerController::class, "showCategory"]);
+    Route::get("/dashboard-manager/order", [DashboardManagerController::class, "showOrder"]);
+    Route::get("/dashboard-manager/report", [DashboardManagerController::class, "showReport"]);
 });
 
 Route::middleware(["role:cashier"])->group(function () {

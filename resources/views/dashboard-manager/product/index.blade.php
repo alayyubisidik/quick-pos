@@ -1,8 +1,8 @@
 @extends('layout.main')
 
-@section('title', "Overview")
+@section('title', "Product Management")
 
 @section('content')
-<h1>Manager</h1>
+<h1>Product</h1>
 
 @endsection
