@@ -20,6 +20,14 @@ class DashboardManagerController extends Controller
         ]);
     }
 
+    public function changeUserStatus(Request $request) {
+        $user = User::where("email", $request->input("email"))->first();
+        $user->status = !$request->input("status");
+        $user->save();
+
+        return redirect("/dashboard-manager/user")->with("message-success", "Change user status successfully");
+    }
+
     
     // ====================================================User====================================================================
 

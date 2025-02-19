@@ -21,7 +21,10 @@ Route::middleware(["guest"])->group(function () {
 
 Route::middleware(["role:manager"])->group(function () {
     Route::get("/dashboard-manager", [DashboardManagerController::class, "showOverview"]);
+
     Route::get("/dashboard-manager/user", [DashboardManagerController::class, "showUser"]);
+    Route::post("/dashboard-manager/change-user-status", [DashboardManagerController::class, "changeUserStatus"])->name("user.change-user-status");
+
     Route::get("/dashboard-manager/product", [DashboardManagerController::class, "showProduct"]);
     Route::get("/dashboard-manager/category", [DashboardManagerController::class, "showCategory"]);
     Route::get("/dashboard-manager/order", [DashboardManagerController::class, "showOrder"]);
