@@ -6,17 +6,11 @@ use App\Http\Controllers\DashboardCahierController;
 use App\Http\Controllers\DashboardManagerController;
 use App\Http\Controllers\DashboardWarehouseController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
+
+Route::get("/", function () {
+    return redirect("/signin");
+});
 
 Route::get("/signout", [AuthController::class, "signOut"]);
 
@@ -27,6 +21,19 @@ Route::middleware(["guest"])->group(function () {
 
 Route::middleware(["role:manager"])->group(function () {
     Route::get("/dashboard-manager", [DashboardManagerController::class, "showOverview"]);
+
+    Route::get("/dashboard-manager/user", [DashboardManagerController::class, "showUser"]);
+    Route::post("/dashboard-manager/change-user-status", [DashboardManagerController::class, "changeUserStatus"])->name("user.change-user-status");
+    Route::get("/dashboard-manager/user/add", [DashboardManagerController::class, "showAddUser"])->name("user.show-add-user");
+    Route::post("/dashboard-manager/user/add", [DashboardManagerController::class, "submitAddUser"])->name("user.submit-add-user");
+    Route::get("/dashboard-manager/user/remove/{userId}", [DashboardManagerController::class, "removeUser"])->name("user.remove-user");
+    Route::get("/dashboard-manager/user/edit/{userId}", [DashboardManagerController::class, "showEditUser"])->name("user.show-edit-user");
+    Route::post("/dashboard-manager/user/edit/{userId}", [DashboardManagerController::class, "submitEditUser"])->name("user.submit-edit-user");
+
+    Route::get("/dashboard-manager/product", [DashboardManagerController::class, "showProduct"]);
+    Route::get("/dashboard-manager/category", [DashboardManagerController::class, "showCategory"]);
+    Route::get("/dashboard-manager/order", [DashboardManagerController::class, "showOrder"]);
+    Route::get("/dashboard-manager/report", [DashboardManagerController::class, "showReport"]);
 });
 
 Route::middleware(["role:cashier"])->group(function () {
