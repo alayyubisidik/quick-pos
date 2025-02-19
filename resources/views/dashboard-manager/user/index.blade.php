@@ -5,14 +5,14 @@
 @section('content')
     <h1 class="text-2xl font-semibold mb-[1.5rem]">User Management</h1>
 
-    <button type="button"
-        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-[1rem] focus:outline-none ">Add
-        New User</button>
+    <a href="{{ route('user.show-add-user') }}">
+        <button type="button"
+            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-[1rem] focus:outline-none ">Add
+            New User</button>
+    </a>
 
-    @if (session("message-success"))
-        <div id="alert-2"
-            class="flex items-center p-4 mb-4 text-green-800 rounded-lg bg-green-300 "
-            role="alert">
+    @if (session('message-success'))
+        <div id="alert-2" class="flex items-center p-4 mb-4 text-green-800 rounded-lg bg-green-300 " role="alert">
             <svg class="shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                 viewBox="0 0 20 20">
                 <path
@@ -20,13 +20,14 @@
             </svg>
             <span class="sr-only">Info</span>
             <div class="ms-3 text-sm font-medium">
-                {{ session("message-success") }}
+                {{ session('message-success') }}
             </div>
             <button type="button"
                 class="ms-auto -mx-1.5 -my-1.5 bg-green-50 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-green-200 inline-flex items-center justify-center h-8 w-8 "
                 data-dismiss-target="#alert-2" aria-label="Close">
                 <span class="sr-only">Close</span>
-                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 14 14">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
                 </svg>
@@ -68,7 +69,7 @@
                             {{ $loop->iteration }}
                         </td>
                         <td class="px-6 py-4 text-gray-700 ">
-                            {{ $user['image'] }}
+                            <img src="{{ asset('/storage/profile-image/' . $user["image"]) }}" class="w-[100px] ">
                         </td>
                         <td class="px-6 py-4 text-gray-700 ">
                             {{ $user['full_name'] }}
@@ -109,15 +110,17 @@
                                 </svg>
                                 <span class="sr-only">Icon description</span>
                             </button>
-                            <button type="button"
-                                class="text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center me-2 ">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-trash-fill" viewBox="0 0 16 16">
-                                    <path
-                                        d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
-                                </svg>
-                                <span class="sr-only">Icon description</span>
-                            </button>
+                            <a onclick="return confirm('Are you sure to remove this user?')" href="/dashboard-manager/user/remove/{{ $user["id"] }}">
+                                <button type="button"
+                                    class="text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center me-2 ">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                        <path
+                                            d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
+                                    </svg>
+                                    <span class="sr-only">Icon description</span>
+                                </button>
+                            </a>
                         </td>
                     </tr>
                 @endforeach
