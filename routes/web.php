@@ -17,11 +17,23 @@ use App\Http\Controllers\DashboardWarehouseController;
 |
 */
 
+
+Route::get("/signout", [AuthController::class, "signOut"]);
+
+Route::middleware(["guest"])->group(function () {
     Route::get("/signin", [AuthController::class, "showSignin"]);
-    // Route::post("/signin", [AuthController::class, "submitSignin"]);
+    Route::post("/signin", [AuthController::class, "submitSignin"]);
+});
 
+Route::middleware(["role:manager"])->group(function () {
     Route::get("/dashboard-manager", [DashboardManagerController::class, "showOverview"]);
+});
 
+Route::middleware(["role:cashier"])->group(function () {
     Route::get("/dashboard-cashier", [DashboardCahierController::class, "showOverview"]);
+});
 
+Route::middleware(["role:warehouse"])->group(function () {
     Route::get("/dashboard-warehouse", [DashboardWarehouseController::class, "showOverview"]);
+});
+

@@ -12,29 +12,34 @@ class AuthController extends Controller
         return view("auth.signin");;
     }
 
-    // public function submitSignin(Request $request) {
-    //     $request->validate([
-    //         "email" => "required|email",
-    //         "password" => "required"
-    //     ]);
+    public function submitSignin(Request $request) {
+        $request->validate([
+            "email" => "required|email",
+            "password" => "required"
+        ]);
 
-    //     $user = User::where("email", $request->input("email"))->first();
+        $user = User::where("email", $request->input("email"))->first();
 
-    //     if ($user) {
-    //         if (password_verify($request->input("password"), $user->password )) {
-    //             Auth::login($user);
-    //             $request->session()->regenerate();
+        if ($user) {
+            if (password_verify($request->input("password"), $user->password )) {
+                Auth::login($user);
+                $request->session()->regenerate();
 
-    //             if ($user->role === "manager") {
-    //                 return redirect("/dashboard-manager");
-    //             } else if ($user->role === "cashier") {
-    //                 return redirect("/dashboard-cahsier");
-    //             } else if ($user->role === "warehouse") {
-    //                 return redirect("/dashboard-warehouse");
-    //             }
-    //         }
-    //     }
+                if ($user->role === "manager") {
+                    return redirect("/dashboard-manager");
+                } else if ($user->role === "cashier") {
+                    return redirect("/dashboard-cahsier");
+                } else if ($user->role === "warehouse") {
+                    return redirect("/dashboard-warehouse");
+                }
+            }
+        }
 
-    //     return redirect()->back()->with("message-error", "Email or password is incorrect");
-    // }
+        return redirect()->back()->with("message-error", "Email or password is incorrect");
+    }
+
+    public function signOut() {
+        Auth::logout();
+        return redirect("/signin");
+    }
 }
