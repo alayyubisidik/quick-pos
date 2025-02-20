@@ -175,6 +175,15 @@ class DashboardManagerController extends Controller
         return redirect("/dashboard-manager/product")->with("message-success", "Add product successfully");
     }
 
+    public function removeProduct($productSlug) {
+        $product = Product::where("slug", $productSlug)->first();
+        $image_path = public_path("\storage\product-image\\") .$product->image;
+        File::delete($image_path);
+        $product->delete();
+
+        return redirect("/dashboard-manager/product")->with("message-success", "Remove product successfully");
+    }
+
     
     // ====================================================Product====================================================================
     
