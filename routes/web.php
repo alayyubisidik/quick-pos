@@ -53,3 +53,4 @@ Route::middleware(["role:warehouse"])->group(function () {
     Route::get("/dashboard-warehouse", [DashboardWarehouseController::class, "showOverview"]);
 });
 
+ 

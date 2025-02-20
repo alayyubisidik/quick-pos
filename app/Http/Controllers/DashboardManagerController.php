@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Product;
 use App\Models\User;
+use GuzzleHttp\Handler\Proxy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
@@ -133,7 +135,10 @@ class DashboardManagerController extends Controller
     // ====================================================Product====================================================================
     
     public function showProduct() {
-        return view("dashboard-manager.product.index");
+        $products = Product::all();
+        return view("dashboard-manager.product.index", [
+            "products" => $products
+        ]);
     }
     
     // ====================================================Product====================================================================
