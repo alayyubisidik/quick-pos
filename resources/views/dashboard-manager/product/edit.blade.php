@@ -1,34 +1,24 @@
 @extends('layout.main')
 
-@section('title', 'Add Product')
+@section('title', 'Edit Product')
 
 @section('content')
-    <h1 class="text-2xl font-semibold mb-[1.5rem]">Add Product</h1>
+    <h1 class="text-2xl font-semibold mb-[1.5rem]">Edit Product</h1>
 
-    <form action="{{ route('product.submit-add-product') }}" method="post" enctype="multipart/form-data">
+    <form action="/dashboard-manager/product/edit/{{ $product["slug"] }}" method="post" enctype="multipart/form-data">
         @csrf
 
         <div class="mb-6">
             <label for="name" class="block mb-2 text-sm font-medium text-gray-900 ">Name</label>
+            @if(session("message-error"))
+                <p class="text-red-500 text-sm mb-[3px] m-0 ">{{ session("message-error") }}</p>
+            @endif
             @error("name")
                 <p class="text-red-500 text-sm mb-[3px] m-0 ">{{ $message }}</p>
             @enderror
-            <input type="type" id="name" value="{{ old("name") }}" name="name"
+            <input type="type" id="name" value="{{ $product["name"] }}" name="name"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                 placeholder="Jhon Doe" />
-        </div>
-
-        <div class="mb-6">
-            <label for="category_id" class="block mb-2 text-sm font-medium text-gray-900 ">Category</label>
-            @error("category")
-                <p class="text-red-500 text-sm mb-[3px] m-0 ">{{ $message }}</p>
-            @enderror
-            <select id="category_id" name="category_id"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
-                @foreach ($categories as $category)
-                    <option value="{{ $category["id"] }}">{{ $category["name"] }}</option>
-                @endforeach
-            </select>
         </div>
 
         <div class="mb-6">
@@ -36,9 +26,9 @@
             @error("price")
                 <p class="text-red-500 text-sm mb-[3px] m-0 ">{{ $message }}</p>
             @enderror
-            <input type="number" id="price" value="{{ old("price") }}" name="price"
+            <input type="number" id="price" value="{{ $product["price"] }}" name="price"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                placeholder="15000" />
+                placeholder="Jhon Doe" />
         </div>
 
         <div class="mb-6">
@@ -46,9 +36,9 @@
             @error("stock")
                 <p class="text-red-500 text-sm mb-[3px] m-0 ">{{ $message }}</p>
             @enderror
-            <input type="number" id="stock" value="{{ old("stock") }}" name="stock"
+            <input type="number" id="stock" value="{{ $product["stock"] }}" name="stock"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                placeholder="100" />
+                placeholder="Jhon Doe" />
         </div>
 
         <div class="mb-6">
@@ -56,20 +46,32 @@
             @error("min_stock")
                 <p class="text-red-500 text-sm mb-[3px] m-0 ">{{ $message }}</p>
             @enderror
-            <input type="number" id="min_stock" value="{{ old("min_stock") }}" name="min_stock"
+            <input type="number" id="min_stock" value="{{ $product["min_stock"] }}" name="min_stock"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                placeholder="100" />
+                placeholder="Jhon Doe" />
         </div>
 
         <div class="mb-6">
-            <label class="block mb-2 text-sm font-medium text-gray-900 " for="file_input">Product Image</label>
+            <label for="category_id" class="block mb-2 text-sm font-medium text-gray-900 ">Category</label>
+            @error("category_id")
+                <p class="text-red-500 text-sm mb-[3px] m-0 ">{{ $message }}</p>
+            @enderror
+            <select id="category_id" name="category_id"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
+                @foreach ($categories as $category)
+                    <option value="{{ $category['id'] }}" {{  $product["category"]["id"] == $category["id"] ? 'selected' : '' }}>{{ $category["name"] }}</option>
+                @endforeach
+            </select>
+        </div>        
+
+        <div class="mb-6">
+            <label class="block mb-2 text-sm font-medium text-gray-900 " for="file_input">Product Image </label>
             @error("image")
                 <p class="text-red-500 text-sm mb-[3px] m-0 ">{{ $message }}</p>
             @enderror
             <input onchange="previewImage(this)" name="image" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none " aria-describedby="file_input_help" id="file_input" type="file">
             <p class="mt-1 text-sm text-gray-500 " id="file_input_help">SVG, PNG or JPG  (MAX. 800x400px | 5MB).</p>
-            <img id="preview" src="#" alt="Preview"
-            style="display: none; max-width: 150px;; margin-top: 10px;">
+            <img id="preview" src="{{  asset('/storage/product-image/' . $product["image"]) }}" alt="Preview" style=" max-width: 150px; margin-top: 10px;">
         </div>
 
         <div class="flex gap-[.5rem] mt-[1rem]">
@@ -102,5 +104,7 @@
             }
         }
     </script>
+
+
 
 @endsection

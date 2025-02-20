@@ -43,7 +43,7 @@
         </div>        
 
         <div class="mb-6">
-            <label class="block mb-2 text-sm font-medium text-gray-900 " for="file_input">Upload file</label>
+            <label class="block mb-2 text-sm font-medium text-gray-900 " for="file_input">Photo Profile</label>
             @error("image")
                 <p class="text-red-500 text-sm mb-[3px] m-0 ">{{ $message }}</p>
             @enderror

@@ -184,6 +184,54 @@ class DashboardManagerController extends Controller
         return redirect("/dashboard-manager/product")->with("message-success", "Remove product successfully");
     }
 
+    public function showEditProduct($productSlug) {
+        $product = Product::with("category")->where("slug", $productSlug)->first();
+        $categories = Category::all();
+        return view("dashboard-manager.product.edit", [
+            "product" => $product,
+            "categories" => $categories,
+        ]);
+    }
+
+    public function submitEditProduct(Request $request, $productSlug) {
+        $request->validate([
+            "name" => "required|min:3|max:255",
+            "price" => "required",
+            "stock" => "required",
+            "min_stock" => "required",
+            "category_id" => "required",
+            "image" => "image|mimes:jpeg,png,jpg|max:5000"
+        ]);
+        
+        $product = Product::where("slug", $productSlug)->first();
+
+        $slug = Str::slug($request->input("name"));
+
+        $checkProduct = Product::whereNot("slug", $product->slug)->where("slug", $slug)->first();
+        if ($checkProduct) {
+            return redirect()->back()->with("message-error", "Product is already exists");
+        }
+
+        if ($request->file('image')) {
+            Storage::disk('public')->delete('product-image/' . $product->image);
+
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->storeAs('product-image', $imageName, 'public');
+            $product->image = $imageName;
+        }
+
+        $product->name = $request->input('name');
+        $product->slug = $slug;
+        $product->price = $request->input('price');
+        $product->stock = $request->input('stock');
+        $product->min_stock = $request->input('min_stock');
+        $product->category_id = $request->input('category_id');
+
+        $product->save();
+
+        return redirect('/dashboard-manager/product')->with("message-success", "Edit product successfully");
+    }
     
     // ====================================================Product====================================================================
     

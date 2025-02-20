@@ -36,6 +36,8 @@ Route::middleware(["role:manager"])->group(function () {
     Route::get("/dashboard-manager/product/add", [DashboardManagerController::class, "showAddProduct"])->name("product.show-add-product");
     Route::post("/dashboard-manager/product/add", [DashboardManagerController::class, "submitAddProduct"])->name("product.submit-add-product");
     Route::get("/dashboard-manager/product/remove/{productSlug}", [DashboardManagerController::class, "removeProduct"])->name("product.remove-product");
+    Route::get("/dashboard-manager/product/edit/{productSlug}", [DashboardManagerController::class, "showEditProduct"])->name("product.show-edit-product");
+    Route::post("/dashboard-manager/product/edit/{productSlug}", [DashboardManagerController::class, "submitEditProduct"])->name("product.submit-edit-product");
     
     Route::get("/dashboard-manager/category", [DashboardManagerController::class, "showCategory"]);
     Route::get("/dashboard-manager/category/add", [DashboardManagerController::class, "showAddCategory"])->name("category.show-add-category");
