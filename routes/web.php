@@ -33,6 +33,13 @@ Route::middleware(["role:manager"])->group(function () {
     Route::post("/dashboard-manager/user/change-password/{userId}", [DashboardManagerController::class, "submitChangePassword"])->name("user.submit-change-password-user");
 
     Route::get("/dashboard-manager/product", [DashboardManagerController::class, "showProduct"]);
+    Route::get("/dashboard-manager/product/add", [DashboardManagerController::class, "showAddProduct"])->name("product.show-add-product");
+    Route::post("/dashboard-manager/product/add", [DashboardManagerController::class, "submitAddProduct"])->name("product.submit-add-product");
+    Route::get("/dashboard-manager/product/remove/{productSlug}", [DashboardManagerController::class, "removeProduct"])->name("product.remove-product");
+    Route::get("/dashboard-manager/product/edit/{productSlug}", [DashboardManagerController::class, "showEditProduct"])->name("product.show-edit-product");
+    Route::post("/dashboard-manager/product/edit/{productSlug}", [DashboardManagerController::class, "submitEditProduct"])->name("product.submit-edit-product");
+    Route::get("/dashboard-manager/product/export", [DashboardManagerController::class, "exportProduct"])->name("product.export");
+    Route::post("/dashboard-manager/product/import", [DashboardManagerController::class, "importProduct"])->name("product.import");
     
     Route::get("/dashboard-manager/category", [DashboardManagerController::class, "showCategory"]);
     Route::get("/dashboard-manager/category/add", [DashboardManagerController::class, "showAddCategory"])->name("category.show-add-category");
@@ -40,6 +47,7 @@ Route::middleware(["role:manager"])->group(function () {
     Route::get("/dashboard-manager/category/remove/{categoryId}", [DashboardManagerController::class, "removeCategory"])->name("user.remove-category");
     Route::get("/dashboard-manager/category/edit/{categoryId}", [DashboardManagerController::class, "showEditCategory"])->name("category.show-edit-category");
     Route::post("/dashboard-manager/category/edit/{categoryId}", [DashboardManagerController::class, "submitEditCategory"])->name("category.submit-edit-category");
+    
 
     Route::get("/dashboard-manager/order", [DashboardManagerController::class, "showOrder"]);
     Route::get("/dashboard-manager/report", [DashboardManagerController::class, "showReport"]);
@@ -53,3 +61,4 @@ Route::middleware(["role:warehouse"])->group(function () {
     Route::get("/dashboard-warehouse", [DashboardWarehouseController::class, "showOverview"]);
 });
 
+ 
