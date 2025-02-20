@@ -164,6 +164,13 @@ class DashboardManagerController extends Controller
         return redirect("/dashboard-manager/category")->with("message-success", "Add category successfully");
     }
 
+    public function removeCategory($categoryId) {
+        $category = Category::find($categoryId);
+        $category->delete();
+
+        return redirect("/dashboard-manager/category")->with("message-success", "Remove category successfully");
+    }
+
     // ====================================================Category====================================================================
     
     public function showOrder() {

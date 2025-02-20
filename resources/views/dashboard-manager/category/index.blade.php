@@ -73,7 +73,7 @@
                                     <span class="sr-only">Icon description</span>
                                 </button>
                             </a>
-                            <a onclick="return confirm('Are you sure to remove this user?')" href="/dashboard-manager/user/remove/{{ $category["id"] }}">
+                            <a onclick="return confirm('Are you sure to remove this category?')" href="/dashboard-manager/category/remove/{{ $category["id"] }}">
                                 <button type="button"
                                     class="text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center me-2 ">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
