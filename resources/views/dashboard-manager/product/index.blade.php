@@ -43,7 +43,7 @@
                         No
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Image
+                        Image 
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Name
