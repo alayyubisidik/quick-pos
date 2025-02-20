@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -138,7 +139,10 @@ class DashboardManagerController extends Controller
     // ====================================================Product====================================================================
     
     public function showCategory() {
-        return view("dashboard-manager.category.index");
+        $categories = Category::all();
+        return view("dashboard-manager.category.index", [
+            "categories" => $categories
+        ]);
     }
     
     public function showOrder() {
