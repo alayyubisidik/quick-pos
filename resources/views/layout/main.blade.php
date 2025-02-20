@@ -115,14 +115,14 @@
                         id="user-menu-button" aria-expanded="false" data-dropdown-toggle="dropdown">
                         <span class="sr-only">Open user menu</span>
                         <img class="w-8 h-8 rounded-full"
-                            src="{{ asset("/storage/profile-image/" . Auth::user()->image) }}"
-                            alt="user photo" />
+                            src="{{ asset('/storage/profile-image/' . Auth::user()->image) }}" alt="user photo" />
                     </button>
                     <!-- Dropdown menu -->
                     <div class="hidden z-50 my-4 w-56 text-base list-none bg-white rounded divide-y divide-gray-100 shadow  "
                         id="dropdown">
                         <div class="py-3 px-4">
-                            <span class="block text-sm font-semibold text-gray-900 ">{{ Auth::user()->full_name }}</span>
+                            <span
+                                class="block text-sm font-semibold text-gray-900 ">{{ Auth::user()->full_name }}</span>
                             <span class="block text-sm text-gray-900 truncate ">{{ Auth::user()->email }}</span>
                         </div>
                         <ul class="py-1 text-gray-700 " aria-labelledby="dropdown">
@@ -211,7 +211,8 @@
                         <a href="/dashboard-manager/report"
                             class="{{ request()->is('dashboard-manager/report*') ? 'bg-blue-500' : '' }} group flex items-center p-2 text-base font-medium rounded-lg  hover:bg-blue-500 text-gray-600 hover:text-white ">
                             <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23"
-                                fill="{{ request()->is('dashboard-manager/report*') ? 'white' : 'gray' }}" class="bi bi-clipboard2-check-fill group-hover:fill-white" viewBox="0 0 16 16">
+                                fill="{{ request()->is('dashboard-manager/report*') ? 'white' : 'gray' }}"
+                                class="bi bi-clipboard2-check-fill group-hover:fill-white" viewBox="0 0 16 16">
                                 <path
                                     d="M10 .5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5.5.5 0 0 1-.5.5.5.5 0 0 0-.5.5V2a.5.5 0 0 0 .5.5h5A.5.5 0 0 0 11 2v-.5a.5.5 0 0 0-.5-.5.5.5 0 0 1-.5-.5" />
                                 <path
@@ -226,10 +227,12 @@
                     <li>
                         <a href="/signout"
                             class=" group flex items-center p-2 text-base font-medium rounded-lg  hover:bg-blue-500 text-gray-600 hover:text-white ">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="gray"
-                                class="bi bi-pie-chart-fill  group-hover:fill-white " viewBox="0 0 16 16">
-                                <path
-                                    d="M15.985 8.5H8.207l-5.5 5.5a8 8 0 0 0 13.277-5.5zM2 13.292A8 8 0 0 1 7.5.015v7.778zM8.5.015V7.5h7.485A8 8 0 0 0 8.5.015" />
+                            <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" 
+                                fill="currentColor" class="bi bi-box-arrow-right group-hover:fill-white" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z" />
+                                <path fill-rule="evenodd"
+                                    d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z" />
                             </svg>
                             <span class="ml-3 ">Sign Out</span>
                         </a>

@@ -135,11 +135,46 @@ class DashboardManagerController extends Controller
     // ====================================================Product====================================================================
     
     public function showProduct() {
-        $products = Product::all();
+        $products = Product::with("category")->get();
         return view("dashboard-manager.product.index", [
             "products" => $products
         ]);
     }
+
+    public function showAddProduct() {
+        $categories = Category::all();
+        return view("dashboard-manager.product.add", [
+            "categories" => $categories
+        ]);
+    }
+
+    public function submitAddProduct(Request $request) {
+        $request->validate([
+            "name" => "required|min:3|max:255",
+            "category_id" => "required",
+            "price" => "required",
+            'stock' => 'required',
+            'min_stock' => 'required',
+            "image" => "required|image|mimes:jpeg,png,jpg|max:5000"
+        ]);
+
+        $image = $request->file("image");
+        $imageName = time() . "." . $image->getClientOriginalExtension();
+        $image->storeAs("product-image", $imageName, "public");
+
+        Product::create([
+            "name" => $request->input("name"),
+            "slug" => Str::slug($request->input("name")),
+            "category_id" => $request->input("category_id"),
+            "price" => $request->input("price"),
+            "stock" => $request->input("stock"),
+            "min_stock" => $request->input("min_stock"),
+            "image" => $imageName,
+        ]);
+
+        return redirect("/dashboard-manager/product")->with("message-success", "Add product successfully");
+    }
+
     
     // ====================================================Product====================================================================
     

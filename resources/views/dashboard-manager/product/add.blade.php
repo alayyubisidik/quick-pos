@@ -1,71 +1,68 @@
 @extends('layout.main')
 
-@section('title', 'Add User')
+@section('title', 'Add Product')
 
 @section('content')
-    <h1 class="text-2xl font-semibold mb-[1.5rem]">Add User</h1>
+    <h1 class="text-2xl font-semibold mb-[1.5rem]">Add Product</h1>
 
-    <form action="{{ route('user.submit-add-user') }}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('product.submit-add-product') }}" method="post" enctype="multipart/form-data">
         @csrf
 
         <div class="mb-6">
-            <label for="full_name" class="block mb-2 text-sm font-medium text-gray-900 ">Full Name</label>
-            @error("full_name")
+            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 ">Name</label>
+            @error("name")
                 <p class="text-red-500 text-sm mb-[3px] m-0 ">{{ $message }}</p>
             @enderror
-            <input type="type" id="full_name" value="{{ old("full_name") }}" name="full_name"
+            <input type="type" id="name" value="{{ old("name") }}" name="name"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                 placeholder="Jhon Doe" />
         </div>
 
         <div class="mb-6">
-            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 ">Email address</label>
-            @error("email")
+            <label for="category_id" class="block mb-2 text-sm font-medium text-gray-900 ">Category</label>
+            @error("category")
                 <p class="text-red-500 text-sm mb-[3px] m-0 ">{{ $message }}</p>
             @enderror
-            <input type="email" id="email" value="{{ old("email") }}" name="email"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                placeholder="john.doe@company.com" />
-        </div>
-
-        <div class="mb-6">
-            <label for="password" class="block mb-2 text-sm font-medium text-gray-900 ">Password</label>
-            @if( session("password-not-same-error") )
-                <p class="text-red-500 text-sm mb-[3px] m-0 ">{{ session("password-not-same-error") }}</p>
-            @endif
-            @error("password")
-                <p class="text-red-500 text-sm mb-[3px] m-0 ">{{ $message }}</p>
-            @enderror
-            <input type="password" id="password" name="password"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                placeholder="•••••••••" />
-        </div>
-
-        <div class="mb-6">
-            <label for="password_confirmation" class="block mb-2 text-sm font-medium text-gray-900 ">Confirm password</label>
-            @error("password_confirmation")
-                <p class="text-red-500 text-sm mb-[3px] m-0 ">{{ $message }}</p>
-            @enderror
-            <input type="password" id="password_confirmation" name="password_confirmation"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                placeholder="•••••••••" />
-        </div>
-
-        <div class="mb-6">
-            <label for="role" class="block mb-2 text-sm font-medium text-gray-900 ">Role</label>
-            @error("role")
-                <p class="text-red-500 text-sm mb-[3px] m-0 ">{{ $message }}</p>
-            @enderror
-            <select id="role" value="{{ old("role") }}" name="role"
+            <select id="category_id" name="category_id"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
-                <option value="cashier">Cashier</option>
-                <option value="warehouse">Warehouse</option>
-                <option value="manager">Manager</option>
+                @foreach ($categories as $category)
+                    <option value="{{ $category["id"] }}">{{ $category["name"] }}</option>
+                @endforeach
             </select>
         </div>
 
         <div class="mb-6">
-            <label class="block mb-2 text-sm font-medium text-gray-900 " for="file_input">Photo Porfile</label>
+            <label for="price" class="block mb-2 text-sm font-medium text-gray-900 ">Price</label>
+            @error("price")
+                <p class="text-red-500 text-sm mb-[3px] m-0 ">{{ $message }}</p>
+            @enderror
+            <input type="number" id="price" value="{{ old("price") }}" name="price"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                placeholder="15000" />
+        </div>
+
+        <div class="mb-6">
+            <label for="stock" class="block mb-2 text-sm font-medium text-gray-900 ">Stock</label>
+            @error("stock")
+                <p class="text-red-500 text-sm mb-[3px] m-0 ">{{ $message }}</p>
+            @enderror
+            <input type="number" id="stock" value="{{ old("stock") }}" name="stock"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                placeholder="100" />
+        </div>
+
+        <div class="mb-6">
+            <label for="min_stock" class="block mb-2 text-sm font-medium text-gray-900 ">Minimal Stock</label>
+            @error("min_stock")
+                <p class="text-red-500 text-sm mb-[3px] m-0 ">{{ $message }}</p>
+            @enderror
+            <input type="number" id="min_stock" value="{{ old("min_stock") }}" name="min_stock"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                placeholder="100" />
+        </div>
+
+        <div class="mb-6">
+            <label class="block mb-2 text-sm font-medium text-gray-900 " for="file_input">Product Image</label>
             @error("image")
                 <p class="text-red-500 text-sm mb-[3px] m-0 ">{{ $message }}</p>
             @enderror
@@ -105,7 +102,5 @@
             }
         }
     </script>
-
-
 
 @endsection

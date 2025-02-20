@@ -33,6 +33,8 @@ Route::middleware(["role:manager"])->group(function () {
     Route::post("/dashboard-manager/user/change-password/{userId}", [DashboardManagerController::class, "submitChangePassword"])->name("user.submit-change-password-user");
 
     Route::get("/dashboard-manager/product", [DashboardManagerController::class, "showProduct"]);
+    Route::get("/dashboard-manager/product/add", [DashboardManagerController::class, "showAddProduct"])->name("product.show-add-product");
+    Route::post("/dashboard-manager/product/add", [DashboardManagerController::class, "submitAddProduct"])->name("product.submit-add-product");
     
     Route::get("/dashboard-manager/category", [DashboardManagerController::class, "showCategory"]);
     Route::get("/dashboard-manager/category/add", [DashboardManagerController::class, "showAddCategory"])->name("category.show-add-category");

@@ -4,12 +4,12 @@
 
 @section('content')
     <h1 class="text-2xl font-semibold mb-[1.5rem]">Product Management</h1>
-{{-- 
-    <a href="{{ route('category.show-add-category') }}">
+
+    <a href="{{ route('product.show-add-product') }}">
         <button type="button"
             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-[1rem] focus:outline-none ">Add
             New Product</button>
-    </a> --}}
+    </a>
 
     @if (session('message-success'))
         <div id="alert-2" class="flex items-center p-4 mb-4 text-green-800 rounded-lg bg-green-300 " role="alert">
@@ -72,16 +72,16 @@
                             {{ $loop->iteration }}
                         </td>
                         <td class="px-6 py-4 text-gray-700 ">
-                            {{ $product['image'] }}
+                            <img src="{{ asset('/storage/product-image/' . $product["image"]) }}" class="w-[100px] ">
                         </td>
                         <td class="px-6 py-4 text-gray-700 ">
                             {{ $product['name'] }}
                         </td>
                         <td class="px-6 py-4 text-gray-700 ">
-                            {{ $product['name'] }}
+                            {{ $product['category']['name'] }}
                         </td>
                         <td class="px-6 py-4 text-gray-700 ">
-                            {{ $product['price'] }}
+                            @rupiah($product['price'])
                         </td>
                         <td class="px-6 py-4 text-gray-700 ">
                             {{ $product['stock'] }}
