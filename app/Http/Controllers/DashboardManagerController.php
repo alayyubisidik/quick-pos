@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
-use Str;
+use Illuminate\Support\Str;
+
 
 class DashboardManagerController extends Controller
 {
@@ -138,12 +139,32 @@ class DashboardManagerController extends Controller
     
     // ====================================================Product====================================================================
     
+    // ====================================================Category====================================================================
     public function showCategory() {
         $categories = Category::all();
         return view("dashboard-manager.category.index", [
             "categories" => $categories
         ]);
     }
+
+    public function showAddCategory() {
+        return view("dashboard-manager.category.add");
+    }
+
+    public function submitAddCategory(Request $request) {
+        $request->validate([
+            "name" => "required|min:3|max:255|unique:categories,name"
+        ]);
+
+        Category::create([
+            "name" => $request->input("name"),
+            "slug" => Str::slug($request->input("title"))
+        ]);
+
+        return redirect("/dashboard-manager/category")->with("message-success", "Add category successfully");
+    }
+
+    // ====================================================Category====================================================================
     
     public function showOrder() {
         return view("dashboard-manager.order.index");
