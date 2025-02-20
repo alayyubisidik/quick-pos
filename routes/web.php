@@ -38,6 +38,8 @@ Route::middleware(["role:manager"])->group(function () {
     Route::get("/dashboard-manager/product/remove/{productSlug}", [DashboardManagerController::class, "removeProduct"])->name("product.remove-product");
     Route::get("/dashboard-manager/product/edit/{productSlug}", [DashboardManagerController::class, "showEditProduct"])->name("product.show-edit-product");
     Route::post("/dashboard-manager/product/edit/{productSlug}", [DashboardManagerController::class, "submitEditProduct"])->name("product.submit-edit-product");
+    Route::get("/dashboard-manager/product/export", [DashboardManagerController::class, "exportProduct"])->name("product.export");
+    Route::post("/dashboard-manager/product/import", [DashboardManagerController::class, "importProduct"])->name("product.import");
     
     Route::get("/dashboard-manager/category", [DashboardManagerController::class, "showCategory"]);
     Route::get("/dashboard-manager/category/add", [DashboardManagerController::class, "showAddCategory"])->name("category.show-add-category");
