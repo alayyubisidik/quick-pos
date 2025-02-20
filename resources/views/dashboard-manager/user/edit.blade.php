@@ -38,6 +38,7 @@
                 
                 <option value="cashier" {{  $user["role"] == 'cashier' ? 'selected' : '' }}>Cashier</option>
                 <option value="warehouse" {{  $user["role"] == 'warehouse' ? 'selected' : '' }}>Warehouse</option>
+                <option value="manager" {{  $user["role"] == 'manager' ? 'selected' : '' }}>Manager</option>
             </select>
         </div>        
 

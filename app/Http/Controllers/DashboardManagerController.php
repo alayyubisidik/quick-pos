@@ -18,9 +18,11 @@ class DashboardManagerController extends Controller
     // ====================================================User====================================================================
     
     public function showUser() {
-        $users = User::whereNot("role", "manager")->get();
+        $staffs = User::whereNot("role", "manager")->get();
+        $managers = User::where("role", "manager")->get();
         return view("dashboard-manager.user.index", [
-            "users" => $users
+            "staffs" => $staffs,
+            "managers" => $managers,
         ]);
     }
 
@@ -41,7 +43,7 @@ class DashboardManagerController extends Controller
             "full_name" => "required|min:3|max:255",
             "email" => "required|email|max:255|unique:users,email",
             "password" => "required|min:3|max:255|confirmed",
-            'role' => 'required|in:cashier,warehouse',
+            'role' => 'required|in:cashier,warehouse,manager',
             "image" => "required|image|mimes:jpeg,png,jpg|max:5000"
         ]);
 
@@ -78,9 +80,9 @@ class DashboardManagerController extends Controller
 
     public function submitEditUser(Request $request, $userId) {
         $request->validate([
-            "full_name" => "min:3|max:255",
-            "email" => "email|max:255",
-            'role' => 'in:cashier,warehouse',
+            "full_name" => "required|min:3|max:255",
+            "email" => "required|email|max:255",
+            'role' => 'required|in:cashier,warehouse,manager',
             "image" => "image|mimes:jpeg,png,jpg|max:5000"
         ]);
 
@@ -104,6 +106,25 @@ class DashboardManagerController extends Controller
         return redirect('/dashboard-manager/user')->with("message-success", "Edit user successfully");
     }
 
+    public function showChangePassword($userId) {
+        $user = User::find($userId);
+        return view("dashboard-manager.user.change-password", [
+            "user_id" => $userId,
+            "user" => $user
+        ]);
+    }
+
+    public function submitChangePassword(Request $request, $userId) {
+        $request->validate([
+            "password" => "required|min:3|max:255|confirmed",
+        ]);
+
+        $user = User::find($userId);
+        $user->password = Hash::make($request->input('password'));
+        $user->save();
+
+        return redirect("/dashboard-manager/user")->with("message-success", "Change password successfully");
+    }
     
     // ====================================================User====================================================================
 

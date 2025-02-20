@@ -115,26 +115,16 @@
                         id="user-menu-button" aria-expanded="false" data-dropdown-toggle="dropdown">
                         <span class="sr-only">Open user menu</span>
                         <img class="w-8 h-8 rounded-full"
-                            src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gough.png"
+                            src="{{ asset("/storage/profile-image/" . Auth::user()->image) }}"
                             alt="user photo" />
                     </button>
                     <!-- Dropdown menu -->
                     <div class="hidden z-50 my-4 w-56 text-base list-none bg-white rounded divide-y divide-gray-100 shadow  "
                         id="dropdown">
                         <div class="py-3 px-4">
-                            <span class="block text-sm font-semibold text-gray-900 ">Neil Sims</span>
-                            <span class="block text-sm text-gray-900 truncate ">name@flowbite.com</span>
+                            <span class="block text-sm font-semibold text-gray-900 ">{{ Auth::user()->full_name }}</span>
+                            <span class="block text-sm text-gray-900 truncate ">{{ Auth::user()->email }}</span>
                         </div>
-                        <ul class="py-1 text-gray-700 " aria-labelledby="dropdown">
-                            <li>
-                                <a href="#" class="block py-2 px-4 text-sm hover:bg-gray-100 ">My
-                                    profile</a>
-                            </li>
-                            <li>
-                                <a href="#" class="block py-2 px-4 text-sm hover:bg-gray-100 ">Account
-                                    settings</a>
-                            </li>
-                        </ul>
                         <ul class="py-1 text-gray-700 " aria-labelledby="dropdown">
                             <li>
                                 <a href="/signout" class="block py-2 px-4 text-sm hover:bg-gray-100  ">Sign

@@ -21,6 +21,11 @@ class AuthController extends Controller
         $user = User::where("email", $request->input("email"))->first();
 
         if ($user) {
+
+            if (!$user->status){
+                return redirect()->back()->with("message-error", "Your account is blocked");
+            }
+
             if (password_verify($request->input("password"), $user->password )) {
                 Auth::login($user);
                 $request->session()->regenerate();
@@ -28,7 +33,7 @@ class AuthController extends Controller
                 if ($user->role === "manager") {
                     return redirect("/dashboard-manager");
                 } else if ($user->role === "cashier") {
-                    return redirect("/dashboard-cahsier");
+                    return redirect("/dashboard-cashier");
                 } else if ($user->role === "warehouse") {
                     return redirect("/dashboard-warehouse");
                 }
