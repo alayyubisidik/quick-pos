@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
-use Str;
+use Illuminate\Support\Str;
+
 
 class DashboardManagerController extends Controller
 {
@@ -109,7 +111,6 @@ class DashboardManagerController extends Controller
     public function showChangePassword($userId) {
         $user = User::find($userId);
         return view("dashboard-manager.user.change-password", [
-            "user_id" => $userId,
             "user" => $user
         ]);
     }
@@ -137,9 +138,68 @@ class DashboardManagerController extends Controller
     
     // ====================================================Product====================================================================
     
+    // ====================================================Category====================================================================
     public function showCategory() {
-        return view("dashboard-manager.category.index");
+        $categories = Category::all();
+        return view("dashboard-manager.category.index", [
+            "categories" => $categories
+        ]);
     }
+
+    public function showAddCategory() {
+        return view("dashboard-manager.category.add");
+    }
+
+    public function submitAddCategory(Request $request) {
+        $request->validate([
+            "name" => "required|min:3|max:255|unique:categories,name"
+        ]);
+
+        Category::create([
+            "name" => $request->input("name"),
+            "slug" => Str::slug($request->input("name"))
+        ]);
+
+        return redirect("/dashboard-manager/category")->with("message-success", "Add category successfully");
+    }
+
+    public function removeCategory($categoryId) {
+        $category = Category::find($categoryId);
+        $category->delete();
+
+        return redirect("/dashboard-manager/category")->with("message-success", "Remove category successfully");
+    }
+
+    public function showEditCategory($categoryId) {
+        $category = Category::find($categoryId);
+        return view("dashboard-manager.category.edit", [
+            "category" => $category
+        ]);
+    }
+
+    public function submitEditCategory(Request $request, $categoryId) {
+        $request->validate([
+            "name" => "required|min:3|max:255",
+        ]);
+
+        $slug = Str::slug($request->input("name"));
+
+        
+        $category = Category::find($categoryId);
+
+        $checkCategory = Category::whereNot("slug", $category->slug)->where("slug", $slug)->first();
+        if ($checkCategory) {
+            return redirect()->back()->with("message-error", "Category is already exists");
+        }
+
+        $category->name = $request->input('name');
+        $category->slug = $slug;
+        $category->save();
+
+        return redirect('/dashboard-manager/category')->with("message-success", "Edit category successfully");
+    }
+
+    // ====================================================Category====================================================================
     
     public function showOrder() {
         return view("dashboard-manager.order.index");

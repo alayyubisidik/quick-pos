@@ -33,7 +33,14 @@ Route::middleware(["role:manager"])->group(function () {
     Route::post("/dashboard-manager/user/change-password/{userId}", [DashboardManagerController::class, "submitChangePassword"])->name("user.submit-change-password-user");
 
     Route::get("/dashboard-manager/product", [DashboardManagerController::class, "showProduct"]);
+    
     Route::get("/dashboard-manager/category", [DashboardManagerController::class, "showCategory"]);
+    Route::get("/dashboard-manager/category/add", [DashboardManagerController::class, "showAddCategory"])->name("category.show-add-category");
+    Route::post("/dashboard-manager/category/add", [DashboardManagerController::class, "submitAddcategory"])->name("category.submit-add-category");
+    Route::get("/dashboard-manager/category/remove/{categoryId}", [DashboardManagerController::class, "removeCategory"])->name("user.remove-category");
+    Route::get("/dashboard-manager/category/edit/{categoryId}", [DashboardManagerController::class, "showEditCategory"])->name("category.show-edit-category");
+    Route::post("/dashboard-manager/category/edit/{categoryId}", [DashboardManagerController::class, "submitEditCategory"])->name("category.submit-edit-category");
+
     Route::get("/dashboard-manager/order", [DashboardManagerController::class, "showOrder"]);
     Route::get("/dashboard-manager/report", [DashboardManagerController::class, "showReport"]);
 });
