@@ -60,7 +60,7 @@
                             {{ $category['name'] }}
                         </td>
                         <td class="px-6 py-4">
-                            <a href="/dashboard-manager/user/edit/{{ $category["id"] }}">
+                            <a href="/dashboard-manager/category/edit/{{ $category["id"] }}">
                                 <button type="button"
                                     class="text-white bg-cyan-500 hover:bg-cyan-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center me-2 ">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"

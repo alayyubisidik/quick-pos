@@ -111,7 +111,6 @@ class DashboardManagerController extends Controller
     public function showChangePassword($userId) {
         $user = User::find($userId);
         return view("dashboard-manager.user.change-password", [
-            "user_id" => $userId,
             "user" => $user
         ]);
     }
@@ -158,7 +157,7 @@ class DashboardManagerController extends Controller
 
         Category::create([
             "name" => $request->input("name"),
-            "slug" => Str::slug($request->input("title"))
+            "slug" => Str::slug($request->input("name"))
         ]);
 
         return redirect("/dashboard-manager/category")->with("message-success", "Add category successfully");
@@ -169,6 +168,35 @@ class DashboardManagerController extends Controller
         $category->delete();
 
         return redirect("/dashboard-manager/category")->with("message-success", "Remove category successfully");
+    }
+
+    public function showEditCategory($categoryId) {
+        $category = Category::find($categoryId);
+        return view("dashboard-manager.category.edit", [
+            "category" => $category
+        ]);
+    }
+
+    public function submitEditCategory(Request $request, $categoryId) {
+        $request->validate([
+            "name" => "required|min:3|max:255",
+        ]);
+
+        $slug = Str::slug($request->input("name"));
+
+        
+        $category = Category::find($categoryId);
+
+        $checkCategory = Category::whereNot("slug", $category->slug)->where("slug", $slug)->first();
+        if ($checkCategory) {
+            return redirect()->back()->with("message-error", "Category is already exists");
+        }
+
+        $category->name = $request->input('name');
+        $category->slug = $slug;
+        $category->save();
+
+        return redirect('/dashboard-manager/category')->with("message-success", "Edit category successfully");
     }
 
     // ====================================================Category====================================================================
